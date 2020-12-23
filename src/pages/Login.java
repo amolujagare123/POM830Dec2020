@@ -23,6 +23,14 @@ public class Login {
     @FindBy(xpath = "//button[normalize-space()='Login']")
     WebElement btnLogin;
 
+    @FindBy (xpath = "//a[normalize-space()='I forgot my password']")
+    WebElement lnkForgotPass;
+
+    public void clickForgotPass()
+    {
+        lnkForgotPass.click();
+    }
+
     public Login(WebDriver driver)
     {
         PageFactory.initElements(driver,this);

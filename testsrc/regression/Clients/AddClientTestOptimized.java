@@ -19,18 +19,29 @@ public class AddClientTestOptimized extends DoLogin {
     public void addClientTest() throws IOException {
 
         Menu menu = new Menu(driver);
-
         menu.clickAddClient();
 
         AddClient addClient = new AddClient(driver);
+
         addClient.setClientName("Komal");
         addClient.setClientSurname("xyz");
+        addClient.setLanguage("Thai");
         addClient.setClientAddess1("abcd");
         addClient.setClientAddess2("my address");
         addClient.setClientCity("pune");
         addClient.setClientState("maharashtra");
         addClient.setClientZip("898989");
+        addClient.setCountry("Malaysia");
+        addClient.setGender("Other");
         addClient.setClientPhone("898989");
+        addClient.setClientFax("89898");
+        addClient.setClientMobile("8989889");
+        addClient.setClientEmail("amol@gmail.com");
+        addClient.setClientWeb("www.xyz.com");
+        addClient.setClientVatId("21212");
+        addClient.setClientTaxCode("34343");
+        addClient.clickSave();
+
 
     }
 

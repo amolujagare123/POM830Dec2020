@@ -1,5 +1,6 @@
 package pages.Clients;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -74,7 +75,7 @@ public class AddClient {
     @FindBy (xpath="//input[@id='client_fax']")
     WebElement clientFax;
 
-    void setClientFax(String fax)
+    public  void setClientFax(String fax)
     {
         clientFax.sendKeys(fax);
     }
@@ -83,7 +84,7 @@ public class AddClient {
     WebElement clientMobile;
 
 
-    void setClientMobile(String mobile)
+    public void setClientMobile(String mobile)
     {
         clientMobile.sendKeys(mobile);
     }
@@ -92,7 +93,7 @@ public class AddClient {
     WebElement clientEmail;
 
 
-    void setClientEmail(String email)
+    public  void setClientEmail(String email)
     {
         clientEmail.sendKeys(email);
     }
@@ -100,7 +101,7 @@ public class AddClient {
     @FindBy (xpath="//input[@id='client_web']")
     WebElement clientWeb;
 
-    void setClientWeb(String web)
+    public void setClientWeb(String web)
     {
         clientWeb.sendKeys(web);
     }
@@ -108,7 +109,7 @@ public class AddClient {
     @FindBy (xpath="//input[@id='client_vat_id']")
     WebElement clientVatId;
 
-    void setClientVatId(String vat)
+    public void setClientVatId(String vat)
     {
         clientVatId.sendKeys(vat);
     }
@@ -116,13 +117,63 @@ public class AddClient {
     @FindBy (xpath="//input[@id='client_tax_code']")
     WebElement clientTaxCode;
 
-    void setClientTaxCode(String tax)
+    public void setClientTaxCode(String tax)
     {
         clientTaxCode.sendKeys(tax);
     }
 
+
+
+    @FindBy (id="select2-client_language-container")
+    WebElement containerLanguage;
+
+    @FindBy(xpath = "//input[@type='search']")
+    WebElement searchBox;
+
+    WebDriver driver;
+
+    public void setLanguage(String language)
+    {
+        containerLanguage.click();
+        searchBox.sendKeys(language);
+        driver.findElement(By.xpath("//li[contains(text(),'"+language+"')]")).click();
+    }
+
+
+    @FindBy (id="select2-client_country-container")
+    WebElement containerCountry;
+
+    public void setCountry(String country)
+    {
+        containerCountry.click();
+        searchBox.sendKeys(country);
+        driver.findElement(By.xpath("//li[text()='"+country+"']")).click();
+    }
+
+
+    @FindBy(id="select2-client_gender-container")
+    WebElement containerGender;
+
+    public void setGender(String gender)
+    {
+        containerGender.click();
+        driver.findElement(By.xpath("//li[contains(text(),'"+gender+"')]")).click();
+    }
+
+
+
+
+    @FindBy (xpath="//button[normalize-space()='Save']")
+    WebElement btnSave;
+
+    public void clickSave()
+    {
+        btnSave.click();
+    }
+
      public AddClient(WebDriver driver)
      {
+         this.driver = driver;
          PageFactory.initElements(driver,this);
      }
 

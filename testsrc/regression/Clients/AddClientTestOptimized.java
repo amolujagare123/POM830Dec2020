@@ -10,13 +10,14 @@ import pages.Menu;
 import util.DoLogin;
 
 import java.io.IOException;
+import java.text.ParseException;
 
 import static utilities.ConfigReader.*;
 
 public class AddClientTestOptimized extends DoLogin {
 
     @Test
-    public void addClientTest() throws IOException {
+    public void addClientTest() throws IOException, ParseException {
 
         Menu menu = new Menu(driver);
         menu.clickAddClient();
@@ -32,6 +33,7 @@ public class AddClientTestOptimized extends DoLogin {
         addClient.setClientState("maharashtra");
         addClient.setClientZip("898989");
         addClient.setCountry("Malaysia");
+        addClient.setDate("1/03/2020");
         addClient.setGender("Other");
         addClient.setClientPhone("898989");
         addClient.setClientFax("89898");
@@ -41,6 +43,7 @@ public class AddClientTestOptimized extends DoLogin {
         addClient.setClientVatId("21212");
         addClient.setClientTaxCode("34343");
         addClient.clickSave();
+
 
 
     }

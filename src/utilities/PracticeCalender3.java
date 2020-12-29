@@ -30,12 +30,12 @@ public class PracticeCalender3 {
 
         datePicker.click();
 
-         String setDateStr = "23/03/2020"; // dd/MM/yyyy
+         String setDateStr = "29/12/2020"; // dd/MM/yyyy
          Date setDate = new SimpleDateFormat("dd/MM/yyyy").parse(setDateStr);
 
 
          String currDateStr = driver.findElement(By.className("ui-datepicker-title")).getText();
-         // MMMM yyyy - Dec 2020
+         // MMMM yyyy - December 2020
          Date currDate = new SimpleDateFormat("MMMM yyyy").parse(currDateStr);
 
 
@@ -60,6 +60,16 @@ public class PracticeCalender3 {
                    driver.findElement(By.xpath("//span[normalize-space()='Prev']")).click(); // previous web element
 
            }
+
+
+
+        String setDateDayStr = new SimpleDateFormat("dd").format(setDate); //"23/03/2020"
+
+
+    //     driver.findElement(By.xpath("//a[text()='23']")).click();
+
+
+           driver.findElement(By.xpath("//a[text()='"+setDateDayStr+"']")).click();
 
     }
 

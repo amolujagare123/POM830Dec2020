@@ -1,10 +1,16 @@
 package pages.Clients;
 
+import org.joda.time.DateTime;
+import org.joda.time.Months;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class AddClient {
 
@@ -171,10 +177,66 @@ public class AddClient {
         btnSave.click();
     }
 
+
+
+
+
+
+
      public AddClient(WebDriver driver)
      {
          this.driver = driver;
          PageFactory.initElements(driver,this);
      }
 
+
+     @FindBy (name="client_birthdate")
+     WebElement clientBirthDate;
+
+    public void setDate(String setDateStr) throws ParseException {
+
+        clientBirthDate.click();
+
+        //String setDateStr = "29/12/2020"; // dd/MM/yyyy
+
+        Date setDate = new SimpleDateFormat("dd/MM/yyyy").parse(setDateStr);
+
+
+        String currDateStr = driver.findElement(By.className("datepicker-switch")).getText();
+        // MMMM yyyy - December 2020
+        Date currDate = new SimpleDateFormat("MMMM yyyy").parse(currDateStr);
+
+
+        int monthDiff = Months.monthsBetween(new DateTime(currDate).withDayOfMonth(1),
+
+                new DateTime(setDate).withDayOfMonth(1)).getMonths();
+
+        System.out.println(monthDiff); // -9
+
+        boolean isFuture = true;
+
+        if(monthDiff<0) {
+            isFuture = false;
+            monthDiff = monthDiff * (-1);
+        }
+
+        for (int i = 0 ; i<monthDiff ;i++)
+        {
+            if (isFuture)
+                driver.findElement(By.className("next")).click(); // next webelement
+            else
+                driver.findElement(By.className("prev")).click(); // previous web element
+        }
+
+
+
+        String setDateDayStr = new SimpleDateFormat("dd").format(setDate); //"23/03/2020"
+
+        // conver the string number in integer
+
+        int setDateDay = Integer.parseInt(setDateDayStr);
+
+        driver.findElement(By.xpath("//td[text()='"+setDateDay+"' and @class='day']")).click();
+
+    }
 }

@@ -1,4 +1,4 @@
-package regression.Clients;
+package DatabaseTesting.Clients;
 
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -13,7 +13,6 @@ import pages.Menu;
 import util.DoLogin;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 
@@ -23,8 +22,7 @@ public class AddClientTestDataProvider extends DoLogin {
     public void addClientTest(String clientName,String surname,String language,String add1,
                               String add2,String city,String state,String zip,String country,
                               String birthdate,String gender,String phone,String fax,
-                              String mobile,String email,String web,String vat,String tax
-                                , String expected,String xpathActual) throws IOException, ParseException {
+                              String mobile,String email,String web,String vat,String tax) throws IOException, ParseException, ClassNotFoundException {
 
         Menu menu = new Menu(driver);
         menu.clickAddClient();
@@ -51,17 +49,15 @@ public class AddClientTestDataProvider extends DoLogin {
         addClient.setClientTaxCode(tax);
         addClient.clickSave();
 
-        String actual="";
+        // 1. loading a driver
+        Class.forName("com.mysql.cj.jdbc.Driver");
 
-        try {
-            actual = driver.findElement(By.xpath(xpathActual)).getText();
-        }
-        catch (Exception e)
-        {
+        //2.creating a connection
 
-        }
+        //3.creating a statement
 
-        Assert.assertEquals(actual,expected,"unexpected result");
+        //4. executing a query
+
 
 
     }
@@ -71,16 +67,16 @@ public class AddClientTestDataProvider extends DoLogin {
     public Object[][] getData() throws IOException {
         FileInputStream fp = new FileInputStream("Data\\ipData.xlsx");
         XSSFWorkbook workbook = new XSSFWorkbook(fp);
-        XSSFSheet sheet = workbook.getSheet("Sheet1");
+        XSSFSheet sheet = workbook.getSheet("dbTesting");
         int rowCount = sheet.getPhysicalNumberOfRows();
 
-        Object[][] data = new Object[rowCount-1][20];
+        Object[][] data = new Object[rowCount-1][18];
 
         for(int i=0;i<rowCount-1;i++)
         {
             XSSFRow row = sheet.getRow(i+1);
 
-            for(int j=0;j<20;j++)
+            for(int j=0;j<18;j++)
             {
                 XSSFCell cell = row.getCell(j);
                 data[i][j] = cell.toString().trim();

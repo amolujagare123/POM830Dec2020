@@ -13,18 +13,17 @@ import pages.Menu;
 import util.DoLogin;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 
-public class AddClientTestDataProvider extends DoLogin {
+public class AddClientTestDataProvider2 extends DoLogin {
 
     @Test (dataProvider = "getData")
     public void addClientTest(String clientName,String surname,String language,String add1,
                               String add2,String city,String state,String zip,String country,
                               String birthdate,String gender,String phone,String fax,
                               String mobile,String email,String web,String vat,String tax
-                                , String expected,String xpathActual) throws IOException, ParseException {
+                                , String expected) throws IOException, ParseException {
 
         Menu menu = new Menu(driver);
         menu.clickAddClient();
@@ -51,17 +50,11 @@ public class AddClientTestDataProvider extends DoLogin {
         addClient.setClientTaxCode(tax);
         addClient.clickSave();
 
-        String actual="";
 
-        try {
-            actual = driver.findElement(By.xpath(xpathActual)).getText();
-        }
-        catch (Exception e)
-        {
+        boolean result = driver.getPageSource().contains(expected);
 
-        }
+        Assert.assertTrue(result,"Given text is not present on the page");
 
-        Assert.assertEquals(actual,expected,"unexpected result");
 
 
     }
@@ -71,16 +64,16 @@ public class AddClientTestDataProvider extends DoLogin {
     public Object[][] getData() throws IOException {
         FileInputStream fp = new FileInputStream("Data\\ipData.xlsx");
         XSSFWorkbook workbook = new XSSFWorkbook(fp);
-        XSSFSheet sheet = workbook.getSheet("Sheet1");
+        XSSFSheet sheet = workbook.getSheet("Sheet3");
         int rowCount = sheet.getPhysicalNumberOfRows();
 
-        Object[][] data = new Object[rowCount-1][20];
+        Object[][] data = new Object[rowCount-1][19];
 
         for(int i=0;i<rowCount-1;i++)
         {
             XSSFRow row = sheet.getRow(i+1);
 
-            for(int j=0;j<20;j++)
+            for(int j=0;j<19;j++)
             {
                 XSSFCell cell = row.getCell(j);
                 data[i][j] = cell.toString().trim();

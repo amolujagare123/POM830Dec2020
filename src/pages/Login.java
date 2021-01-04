@@ -14,17 +14,23 @@ public class Login {
 
     // page factory
 
+    @FindBy(xpath = "//label[@for='email']")
+    public WebElement lblEmail;
+
+    @FindBy (xpath="//h1")
+    public WebElement lblLogin;
+
     @FindBy(xpath = "//input[@id='email']")
-    WebElement txtUser;
+    public WebElement txtUser;
 
     @FindBy(xpath = "//input[@id='password']")
-    WebElement txtPassword;
+    public WebElement txtPassword;
 
     @FindBy(xpath = "//button[normalize-space()='Login']")
-    WebElement btnLogin;
+    public WebElement btnLogin;
 
     @FindBy (xpath = "//a[normalize-space()='I forgot my password']")
-    WebElement lnkForgotPass;
+    public WebElement lnkForgotPass;
 
     public void clickForgotPass()
     {
